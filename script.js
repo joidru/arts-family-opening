@@ -29,7 +29,7 @@ playButton.addEventListener('click', async () => {
   try {
     await video.play();
   } catch {
-    video.controls = true;
+    video.controls = false;
   }
 });
 
@@ -40,7 +40,7 @@ soundButton.addEventListener('click', async () => {
     try {
       await video.play();
     } catch {
-      video.controls = true;
+      video.controls = false;
     }
   }
 
@@ -52,7 +52,7 @@ updateSoundButton();
 
 video.addEventListener('play', () => {
   videoCard.classList.add('is-playing');
-  video.controls = true;
+  video.controls = false;
 });
 
 video.addEventListener('pause', () => {
