@@ -9,6 +9,21 @@ form.addEventListener('submit', (event) => {
 const videoCard = document.querySelector('.video-card');
 const video = videoCard.querySelector('.opening-video');
 const playButton = videoCard.querySelector('.play');
+const soundButton = videoCard.querySelector('.sound-toggle');
+const soundIcon = soundButton.querySelector('.sound-icon');
+const soundLabel = soundButton.querySelector('.sound-label');
+
+const updateSoundButton = () => {
+  const soundIsOn = !video.muted && video.volume > 0;
+  soundButton.classList.toggle('is-on', soundIsOn);
+  soundButton.setAttribute('aria-pressed', String(soundIsOn));
+  soundButton.setAttribute(
+    'aria-label',
+    soundIsOn ? 'Выключить звук' : 'Включить звук',
+  );
+  soundIcon.textContent = soundIsOn ? '🔊' : '🔇';
+  soundLabel.textContent = soundIsOn ? 'Выключить звук' : 'Включить звук';
+};
 
 playButton.addEventListener('click', async () => {
   try {
@@ -17,6 +32,23 @@ playButton.addEventListener('click', async () => {
     video.controls = true;
   }
 });
+
+soundButton.addEventListener('click', async () => {
+  video.muted = !video.muted;
+
+  if (video.paused) {
+    try {
+      await video.play();
+    } catch {
+      video.controls = true;
+    }
+  }
+
+  updateSoundButton();
+});
+
+video.addEventListener('volumechange', updateSoundButton);
+updateSoundButton();
 
 video.addEventListener('play', () => {
   videoCard.classList.add('is-playing');
