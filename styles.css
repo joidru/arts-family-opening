@@ -46,7 +46,7 @@ header {
 .head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 24px;
   padding: 12px 16px 12px 20px;
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -446,6 +446,9 @@ footer {
   color: #fff;
 }
 @media (max-width: 900px) {
+  .head {
+    justify-content: center;
+  }
   .hero {
     min-height: auto;
   }
