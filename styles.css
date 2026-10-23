@@ -169,6 +169,8 @@ h1 span {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 2;
+  pointer-events: none;
   background:
     radial-gradient(
       circle at 72% 18%,
@@ -176,28 +178,34 @@ h1 span {
       transparent 33%
     ),
     linear-gradient(180deg, transparent 50%, rgba(0, 38, 50, 0.3));
+  transition: opacity 0.25s ease;
 }
 .video-card:after {
   content: 'Видео об открытии';
   position: absolute;
   left: 28px;
   bottom: 25px;
+  z-index: 2;
+  pointer-events: none;
   color: #fff;
   font-weight: 600;
   font-size: 14px;
+  transition: opacity 0.25s ease;
 }
 .video-card video {
   position: absolute;
   top: 0;
   left: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 3;
+  background: var(--deep);
+  z-index: 1;
 }
 .play {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -225,6 +233,7 @@ h1 span {
 }
 .format-tag {
   position: absolute;
+  z-index: 3;
   right: 24px;
   top: 22px;
   padding: 8px 12px;
@@ -237,6 +246,14 @@ h1 span {
 }
 .format-mobile {
   display: none;
+}
+.video-card.is-playing:before,
+.video-card.is-playing:after,
+.video-card.is-playing .format-tag,
+.video-card.is-playing .play {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 .apply {
   position: relative;
