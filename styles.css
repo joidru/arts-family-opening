@@ -1,5 +1,6 @@
 :root {
-  --ink: #004e69;
+  --foot: #004e69;
+  --ink: #1e636e;
   --deep: #003e54;
   --teal: #03989e;
   --aqua: #48b5c4;
@@ -72,7 +73,7 @@ header {
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
-  background: var(--deep);
+  background: var(--teal);
   color: #fff;
   box-shadow: 0 9px 24px rgba(0, 62, 84, 0.18);
   transition:
@@ -336,7 +337,7 @@ form {
   padding: 0 28px;
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, #03989e, #07848d);
+  background: var(--teal);
   color: #fff;
   font-weight: 700;
   cursor: pointer;
@@ -392,7 +393,7 @@ form {
 }
 footer {
   margin-top: 72px;
-  background: var(--ink);
+  background: var(--foot);
   color: #fff;
   padding: 58px 0 34px;
 }
