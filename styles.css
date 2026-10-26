@@ -347,12 +347,20 @@ h1 span {
 .form-kicker {
   display: inline-flex;
   align-items: center;
+  gap: 12px;
   margin-bottom: 8px;
   color: var(--ink);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.35px;
   text-transform: uppercase;
+}
+.form-gift {
+  display: block;
+  width: 62px;
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 8px 12px rgba(0, 78, 105, 0.16));
 }
 .form-copy h2 {
   font-size: clamp(24px, 1.8vw, 29px);
@@ -658,6 +666,13 @@ footer {
     gap: 21px;
     padding: 25px 20px 23px;
     border-radius: 22px;
+  }
+  .form-gift {
+    width: 50px;
+  }
+  .form-kicker {
+    gap: 10px;
+    letter-spacing: 1.1px;
   }
   .form-copy h2 {
     font-size: 25px;
