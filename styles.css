@@ -350,7 +350,7 @@ h1 span {
   gap: 12px;
   margin-bottom: 8px;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 1.35px;
   text-transform: uppercase;
@@ -444,6 +444,7 @@ form {
   color: var(--ink);
   font-size: 14px;
   line-height: 1.55;
+  text-align: center;
 }
 .consent a {
   text-decoration-color: #8dbec2;
@@ -690,6 +691,7 @@ footer {
   }
   .consent {
     grid-column: auto;
+    text-align: left;
   }
   footer {
     margin-top: 58px;
