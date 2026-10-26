@@ -10,7 +10,6 @@ const videoCard = document.querySelector('.video-card');
 const video = videoCard.querySelector('.opening-video');
 const playButton = videoCard.querySelector('.play');
 const soundButton = videoCard.querySelector('.sound-toggle');
-const soundIcon = soundButton.querySelector('.sound-icon');
 const soundLabel = soundButton.querySelector('.sound-label');
 
 const updateSoundButton = () => {
@@ -21,7 +20,6 @@ const updateSoundButton = () => {
     'aria-label',
     soundIsOn ? 'Выключить звук' : 'Включить звук',
   );
-  soundIcon.textContent = soundIsOn ? '🔊' : '🔇';
   soundLabel.textContent = soundIsOn ? 'Выключить звук' : 'Включить звук';
 };
 
