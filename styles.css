@@ -18,7 +18,12 @@ html {
   scroll-behavior: smooth;
 }
 body {
+  min-height: 100vh;
+  min-height: 100svh;
   margin: 0;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
   font-family: Montserrat, Arial, sans-serif;
   color: var(--ink);
   background: #f5fafb;
@@ -38,6 +43,10 @@ input {
   position: relative;
   overflow: hidden;
   min-height: auto;
+  margin-top: auto;
+}
+main {
+  margin-bottom: auto;
 }
 header {
   position: relative;
@@ -584,6 +593,9 @@ footer {
   }
 }
 @media (max-width: 620px) {
+  body {
+    padding: 0 0 28px;
+  }
   .sound-toggle {
     top: 10px;
     left: 10px;
