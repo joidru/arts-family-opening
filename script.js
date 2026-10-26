@@ -2,7 +2,7 @@ const form = document.querySelector('#lead-form');
 const submitButton = form.querySelector('.submit');
 const submitLabel = submitButton.querySelector('.submit-label');
 const phoneField = form.querySelector('#phone');
-const phonePattern = /^\\+7 \\d{3} \\d{3}-\\d{2}-\\d{2}$/;
+const phonePattern = /^\+7 \d{3} \d{3}-\d{2}-\d{2}$/;
 const requiredFields = Array.from(form.querySelectorAll('[required]'));
 let submitResetTimer;
 
@@ -27,7 +27,7 @@ const setSubmitState = (state = 'default', label = '') => {
 
 const formatPhone = (value) => {
   const rawValue = value.trim();
-  let digits = rawValue.replace(/\\D/g, '');
+  let digits = rawValue.replace(/\D/g, '');
 
   if (!digits) {
     return rawValue === '+' ? '+' : '';
@@ -61,7 +61,7 @@ const isFieldValid = (field) => {
 phoneField.addEventListener('beforeinput', (event) => {
   if (event.inputType.startsWith('delete')) return;
 
-  if (event.data && /[^+\\d]/.test(event.data)) {
+  if (event.data && /[^+\d]/.test(event.data)) {
     event.preventDefault();
   }
 });
