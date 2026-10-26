@@ -1,19 +1,31 @@
 const form = document.querySelector('#lead-form');
 const submitButton = form.querySelector('.submit');
+const submitLabel = submitButton.querySelector('.submit-label');
 const formStatus = form.querySelector('.form-status');
 const requiredFields = Array.from(form.querySelectorAll('[required]'));
+let submitResetTimer;
 
-const setFormStatus = (message = '', type = '') => {
+const submitLabels = {
+  default: 'Оставить заявку',
+  loading: 'Отправляем…',
+  success: 'Отправлено',
+  error: 'Ошибка',
+};
+
+const setSubmitState = (state = 'default', label = '') => {
+  window.clearTimeout(submitResetTimer);
+  submitButton.classList.remove('is-loading', 'is-success', 'is-error');
+
+  if (state !== 'default') {
+    submitButton.classList.add(`is-${state}`);
+  }
+
+  submitLabel.textContent = label || submitLabels[state];
+  submitButton.disabled = state === 'loading' || state === 'success';
+};
+
+const setFormStatus = (message = '') => {
   formStatus.textContent = message;
-  formStatus.className = 'form-status';
-
-  if (message) {
-    formStatus.classList.add('is-visible');
-  }
-
-  if (type) {
-    formStatus.classList.add(`is-${type}`);
-  }
 };
 
 const validateForm = () => {
@@ -39,7 +51,8 @@ requiredFields.forEach((field) => {
       field.setAttribute('aria-invalid', 'false');
     }
 
-    if (formStatus.classList.contains('is-error')) {
+    if (submitButton.classList.contains('is-error')) {
+      setSubmitState();
       setFormStatus();
     }
   });
@@ -51,14 +64,16 @@ form.addEventListener('submit', async (event) => {
   const firstInvalidField = validateForm();
 
   if (firstInvalidField) {
-    setFormStatus('Заполните, пожалуйста, все поля.', 'error');
+    setSubmitState('error', 'Заполните поля');
+    setFormStatus('Заполните, пожалуйста, все поля.');
     firstInvalidField.focus({ preventScroll: true });
     return;
   }
 
-  submitButton.disabled = true;
+  setSubmitState('loading');
   form.setAttribute('aria-busy', 'true');
   setFormStatus('Отправляем заявку…');
+  const requestStartedAt = performance.now();
 
   try {
     const formData = new FormData(form);
@@ -71,16 +86,26 @@ form.addEventListener('submit', async (event) => {
       credentials: 'omit',
     });
 
+    const spinnerDelay = Math.max(0, 650 - (performance.now() - requestStartedAt));
+    if (spinnerDelay) {
+      await new Promise((resolve) => window.setTimeout(resolve, spinnerDelay));
+    }
+
     form.reset();
     requiredFields.forEach((field) => {
       field.classList.remove('is-invalid');
       field.setAttribute('aria-invalid', 'false');
     });
-    setFormStatus('Спасибо! Заявка успешно отправлена.', 'success');
+    setSubmitState('success');
+    setFormStatus('Спасибо! Заявка успешно отправлена.');
+    submitResetTimer = window.setTimeout(() => {
+      setSubmitState();
+      setFormStatus();
+    }, 3000);
   } catch (error) {
-    setFormStatus('Не удалось отправить заявку. Попробуйте ещё раз.', 'error');
+    setSubmitState('error');
+    setFormStatus('Не удалось отправить заявку. Попробуйте ещё раз.');
   } finally {
-    submitButton.disabled = false;
     form.removeAttribute('aria-busy');
   }
 });
