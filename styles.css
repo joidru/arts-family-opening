@@ -271,11 +271,21 @@ h1 span {
   background: rgba(3, 152, 158, 0.92);
 }
 .sound-icon {
-  display: inline-flex;
+  display: block;
   width: 18px;
-  justify-content: center;
-  font-size: 15px;
-  line-height: 1;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+}
+.sound-icon-on {
+  display: none;
+}
+.sound-toggle.is-on .sound-icon-muted {
+  display: none;
+}
+.sound-toggle.is-on .sound-icon-on {
+  display: block;
 }
 .format-tag {
   position: absolute;
@@ -558,8 +568,8 @@ footer {
     display: none;
   }
   .sound-toggle .sound-icon {
-    width: auto;
-    font-size: 14px;
+    width: 16px;
+    height: 16px;
   }
   .wrap {
     width: min(100% - 28px, 1180px);
