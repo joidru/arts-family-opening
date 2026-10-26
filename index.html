@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20261026-10" />
+    <link rel="stylesheet" href="styles.css?v=20261026-11" />
   </head>
   <body>
     <section class="hero">
@@ -96,7 +96,17 @@
               </div>
               <h2>Будьте в числе первых!</h2>
             </div>
-            <form id="lead-form">
+            <form
+              id="lead-form"
+              action="https://art-s.perm.ru/wp-admin/admin-ajax.php"
+              method="post"
+              novalidate
+            >
+              <input
+                type="hidden"
+                name="action"
+                value="arts_family_opening_lead"
+              />
               <div class="field">
                 <label for="name">ФИО</label
                 ><input
@@ -125,12 +135,15 @@
                   type="text"
                   aria-label="Для кого актуально"
                   placeholder="Напиши для кого актуально: для себя / семьи / ребенка"
+                  required
                 />
               </div>
               <button class="submit" type="submit">Оставить заявку</button>
-              <div class="success" role="status">
-                Спасибо! Это прототип — данные никуда не отправлены.
-              </div>
+              <div
+                class="form-status"
+                role="status"
+                aria-live="polite"
+              ></div>
             </form>
           </div>
           <p class="consent">
@@ -197,6 +210,6 @@
         </div>
       </div>
     </footer>
-    <script src="script.js?v=20261026-2" defer></script>
+    <script src="script.js?v=20261026-3" defer></script>
   </body>
 </html>
