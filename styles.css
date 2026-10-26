@@ -349,7 +349,7 @@ h1 span {
   align-items: center;
   gap: 12px;
   margin-bottom: 8px;
-  color: var(--ink);
+  color: #069f95;
   font-size: 15px;
   font-weight: 800;
   letter-spacing: 1.35px;
@@ -475,6 +475,8 @@ form {
   box-shadow: none;
 }
 footer {
+  /* Временно скрыт. Удалите display: none, чтобы вернуть футер. */
+  display: none;
   margin-top: 72px;
   background: var(--foot);
   color: #fff;
