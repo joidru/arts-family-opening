@@ -616,9 +616,6 @@ footer {
   .wrap {
     width: min(100% - 28px, 1180px);
   }
-  .hero {
-    background: linear-gradient(160deg, #f9fefe 0%, #e2f5f6 42%, #8bc6c9 100%);
-  }
   header {
     padding: 12px 0;
   }
