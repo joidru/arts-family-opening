@@ -1,6 +1,8 @@
 const form = document.querySelector('#lead-form');
 const submitButton = form.querySelector('.submit');
 const submitLabel = submitButton.querySelector('.submit-label');
+const phoneField = form.querySelector('#phone');
+const phonePattern = /^\\+7 \\d{3} \\d{3}-\\d{2}-\\d{2}$/;
 const requiredFields = Array.from(form.querySelectorAll('[required]'));
 let submitResetTimer;
 
@@ -23,11 +25,56 @@ const setSubmitState = (state = 'default', label = '') => {
   submitButton.disabled = state === 'loading' || state === 'success';
 };
 
+const formatPhone = (value) => {
+  const rawValue = value.trim();
+  let digits = rawValue.replace(/\\D/g, '');
+
+  if (!digits) {
+    return rawValue === '+' ? '+' : '';
+  }
+
+  if (digits.startsWith('8')) {
+    digits = `7${digits.slice(1)}`;
+  } else if (!digits.startsWith('7')) {
+    digits = `7${digits}`;
+  }
+
+  digits = digits.slice(0, 11);
+
+  let formatted = '+7';
+  if (digits.length > 1) formatted += ` ${digits.slice(1, 4)}`;
+  if (digits.length > 4) formatted += ` ${digits.slice(4, 7)}`;
+  if (digits.length > 7) formatted += `-${digits.slice(7, 9)}`;
+  if (digits.length > 9) formatted += `-${digits.slice(9, 11)}`;
+
+  return formatted;
+};
+
+const isFieldValid = (field) => {
+  if (field === phoneField) {
+    return phonePattern.test(field.value);
+  }
+
+  return Boolean(field.value.trim());
+};
+
+phoneField.addEventListener('beforeinput', (event) => {
+  if (event.inputType.startsWith('delete')) return;
+
+  if (event.data && /[^+\\d]/.test(event.data)) {
+    event.preventDefault();
+  }
+});
+
+phoneField.addEventListener('input', () => {
+  phoneField.value = formatPhone(phoneField.value);
+});
+
 const validateForm = () => {
   let firstInvalidField = null;
 
   requiredFields.forEach((field) => {
-    const isInvalid = !field.value.trim();
+    const isInvalid = !isFieldValid(field);
     field.classList.toggle('is-invalid', isInvalid);
     field.setAttribute('aria-invalid', String(isInvalid));
 
@@ -41,7 +88,7 @@ const validateForm = () => {
 
 requiredFields.forEach((field) => {
   field.addEventListener('input', () => {
-    if (field.value.trim()) {
+    if (isFieldValid(field)) {
       field.classList.remove('is-invalid');
       field.setAttribute('aria-invalid', 'false');
     }
