@@ -71,16 +71,26 @@ form.addEventListener('submit', async (event) => {
     const formData = new FormData(form);
     formData.set('landing_url', window.location.href);
 
-    await fetch(form.action, {
+    const response = await fetch(form.action, {
       method: 'POST',
       body: formData,
-      mode: 'no-cors',
-      credentials: 'omit',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/json',
+      },
     });
 
+    const result = await response.json();
     const spinnerDelay = Math.max(0, 650 - (performance.now() - requestStartedAt));
+
     if (spinnerDelay) {
       await new Promise((resolve) => window.setTimeout(resolve, spinnerDelay));
+    }
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.data?.message || 'Не удалось отправить заявку.',
+      );
     }
 
     form.reset();
@@ -93,7 +103,7 @@ form.addEventListener('submit', async (event) => {
       setSubmitState();
     }, 3000);
   } catch {
-    setSubmitState('error');
+    setSubmitState('error', 'Ошибка отправки');
   } finally {
     form.removeAttribute('aria-busy');
   }
