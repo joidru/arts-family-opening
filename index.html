@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20261026-11" />
+    <link rel="stylesheet" href="styles.css?v=20261026-12" />
   </head>
   <body>
     <section class="hero">
@@ -138,7 +138,27 @@
                   required
                 />
               </div>
-              <button class="submit" type="submit">Оставить заявку</button>
+              <button class="submit" type="submit">
+                <span class="submit-spinner" aria-hidden="true"></span>
+                <svg
+                  class="submit-state-icon submit-success-icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="m8 12 2.6 2.6L16.5 9"></path>
+                </svg>
+                <svg
+                  class="submit-state-icon submit-error-icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M12 7.5v6"></path>
+                  <path d="M12 17h.01"></path>
+                </svg>
+                <span class="submit-label">Оставить заявку</span>
+              </button>
               <div
                 class="form-status"
                 role="status"
@@ -210,6 +230,6 @@
         </div>
       </div>
     </footer>
-    <script src="script.js?v=20261026-3" defer></script>
+    <script src="script.js?v=20261026-4" defer></script>
   </body>
 </html>
